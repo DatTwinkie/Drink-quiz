@@ -1,4 +1,4 @@
-// Quiz Data
+//all drinks
 const drinks = [
     { name: "Sprite", abbreviation: "Spr" },
     { name: "Soda", abbreviation: "Sd" },
@@ -41,7 +41,7 @@ let currentQuestionIndex = 0;
 let score = 0;
 let shuffledDrinks = [];
 
-// DOM Elements
+//dom button elements
 const questionElement = document.getElementById('question');
 const optionsElement = document.getElementById('options');
 const nextButton = document.getElementById('next-button');
@@ -49,7 +49,7 @@ const resultElement = document.getElementById('result');
 const scoreElement = document.getElementById('score');
 const restartButton = document.getElementById('restart-button');
 
-// Function to shuffle an array
+//function to shuffle array
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -58,18 +58,18 @@ function shuffleArray(array) {
     return array;
 }
 
-// Initialize the quiz
+//start quiz
 function initializeQuiz() {
-    shuffledDrinks = shuffleArray([...drinks]); // Create a shuffled copy of the drinks array
+    shuffledDrinks = shuffleArray([...drinks]);
     currentQuestionIndex = 0;
     score = 0;
     loadQuestion();
 }
 
-// Load the first question
+//load questiuon
 initializeQuiz();
 
-// Function to load a question
+//function to load the questions
 function loadQuestion() {
     const question = shuffledDrinks[currentQuestionIndex];
     questionElement.textContent = `What is the abbreviation for "${question.name}"?`;
@@ -80,7 +80,7 @@ function loadQuestion() {
     nextButton.classList.add('hidden');
 }
 
-// Function to generate random options including the correct answer
+//creates random option
 function getRandomOptions(correctAnswer) {
     const options = [correctAnswer];
     while (options.length < 4) {
@@ -92,7 +92,7 @@ function getRandomOptions(correctAnswer) {
     return shuffleArray(options);
 }
 
-// Function to check the selected answer
+//check answer button
 function checkAnswer(selectedOption) {
     const question = shuffledDrinks[currentQuestionIndex];
     if (selectedOption === question.abbreviation) {
@@ -104,7 +104,7 @@ function checkAnswer(selectedOption) {
     nextButton.classList.remove('hidden');
 }
 
-// Function to load the next question
+//loads the next question
 function nextQuestion() {
     currentQuestionIndex++;
     if (currentQuestionIndex < shuffledDrinks.length) {
@@ -114,20 +114,20 @@ function nextQuestion() {
     }
 }
 
-// Function to show the final result
+// shows final result
 function showResult() {
     document.getElementById('quiz-content').classList.add('hidden');
     resultElement.classList.remove('hidden');
     scoreElement.textContent = `${score}/${shuffledDrinks.length}`;
 }
 
-// Function to restart the quiz
+//restart the quiz
 function restartQuiz() {
     initializeQuiz();
     resultElement.classList.add('hidden');
     document.getElementById('quiz-content').classList.remove('hidden');
 }
 
-// Event Listeners
+//event listener
 nextButton.addEventListener('click', nextQuestion);
 restartButton.addEventListener('click', restartQuiz);
